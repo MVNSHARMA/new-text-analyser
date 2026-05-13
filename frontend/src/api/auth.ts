@@ -65,12 +65,15 @@ export function googleLogin(): void {
 }
 
 export async function getCurrentUser(token: string): Promise<AuthUser> {
-  const response = await fetch(`${API_BASE}/api/auth/me`, {
+  const url = `${API_BASE}/api/auth/me`;
+  console.log("[API Call] GET", url);
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
+  console.log("[API Response]", response.status, url);
   if (!response.ok) {
     throw new Error(`Failed to get user: ${response.status}`);
   }

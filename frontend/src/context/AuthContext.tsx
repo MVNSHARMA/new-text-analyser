@@ -36,9 +36,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   /** Fetch user profile from backend */
   const fetchUser = async (savedToken: string): Promise<AuthUser> => {
-    const response = await fetch(`${API_BASE}/api/auth/me`, {
+    const url = `${API_BASE}/api/auth/me`;
+    console.log("[API Call] GET", url);
+    const response = await fetch(url, {
       headers: { Authorization: `Bearer ${savedToken}` },
     });
+    console.log("[API Response]", response.status, url);
     if (!response.ok) throw new Error(`Auth failed: ${response.status}`);
     return response.json();
   };
@@ -75,9 +78,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       }
 
       try {
-        const response = await fetch(`${API_BASE}/api/auth/me`, {
+        const url = `${API_BASE}/api/auth/me`;
+        console.log("[API Call] GET", url);
+        const response = await fetch(url, {
           headers: { Authorization: `Bearer ${savedToken}` },
         });
+        console.log("[API Response]", response.status, url);
 
         if (response.ok) {
           const userData = await response.json();

@@ -41,11 +41,14 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/api/auth/login`, {
+      const url = `${API_BASE}/api/auth/login`;
+      console.log("[API Call] POST", url);
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+      console.log("[API Response]", response.status, url);
       const data = await response.json();
       if (!response.ok) {
         setError(data.detail || "Login failed");

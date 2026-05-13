@@ -87,7 +87,9 @@ const EmailReportModal: React.FC<EmailReportModalProps> = ({
 
     try {
       const token = getToken();
-      const res = await fetch(`${API_BASE}/api/email/send-report`, {
+      const url = `${API_BASE}/api/email/send-report`;
+      console.log("[API Call] POST", url);
+      const res = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type":  "application/json",
@@ -99,6 +101,7 @@ const EmailReportModal: React.FC<EmailReportModalProps> = ({
           case_data:       caseData,
         }),
       });
+      console.log("[API Response]", res.status, url);
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
